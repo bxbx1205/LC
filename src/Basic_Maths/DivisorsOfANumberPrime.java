@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DivisorsOfANumberPrime {
     static void main(String[] args) {
-        System.out.println(Arrays.toString(divisors(12)));
+        System.out.println(Arrays.toString(divisors(17)));
     }
 
     static int[] divisors(int n){
