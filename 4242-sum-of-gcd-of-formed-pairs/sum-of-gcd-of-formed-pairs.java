@@ -1,5 +1,5 @@
 class Solution {
-    private int gcd(int a, int b) {
+    public int gcd(int a, int b) {
         while (b != 0) {
             int temp = b;
             b = a % b;
@@ -9,26 +9,23 @@ class Solution {
     }
 
     public long gcdSum(int[] nums) {
+        int[] gcdmax = new int[nums.length];
+        int max = 0;
         int n = nums.length;
 
-        int[] prefixGcd = new int[n];
-        int max = 0;
-
         for (int i = 0; i < n; i++) {
-            max = Math.max(max, nums[i]);
-            prefixGcd[i] = gcd(nums[i], max);
+            max = Math.max(nums[i], max);
+            gcdmax[i] = gcd(nums[i], max);
         }
 
-        Arrays.sort(prefixGcd);
+        Arrays.sort(gcdmax);
 
         long sum = 0;
         int left = 0;
         int right = n - 1;
 
         while (left < right) {
-            sum += gcd(prefixGcd[left], prefixGcd[right]);
-            left++;
-            right--;
+            sum += gcd(gcdmax[left++], gcdmax[right--]);
         }
 
         return sum;
