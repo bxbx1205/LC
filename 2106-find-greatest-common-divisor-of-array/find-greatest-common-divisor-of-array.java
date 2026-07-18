@@ -8,9 +8,15 @@ class Solution {
         return a;
     }
     public int findGCD(int[] nums) {
-        Arrays.sort(nums);
-        int min=nums[0];
-        int max=nums[nums.length-1];
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+
+        for(int i=0;i<nums.length;i++){
+            min=Math.min(nums[i],min);
+            max=Math.max(nums[i],max);
+        }
+        
+        
 
         return gcd(min,max);
     }
