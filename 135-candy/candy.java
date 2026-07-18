@@ -9,17 +9,14 @@ class Solution {
                 candy[i] = candy[i - 1] + 1;
             }
         }
-
+        int total = 0;
         for (int i = n - 2; i >= 0; i--) {
             if (ratings[i] > ratings[i + 1]) {
                 candy[i] = Math.max(candy[i], candy[i + 1] + 1);
             }
+            total+=candy[i];
         }
-        int total = 0;
-
-        for (int num : candy) {
-            total += num;
-        }
-        return total;
+        
+        return total+candy[n-1];
     }
 }
