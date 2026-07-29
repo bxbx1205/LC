@@ -14,24 +14,22 @@
  * }
  */
 class Solution {
-    int currentSum=0;
 
-    public void trav(TreeNode root,int sum){
-        if(root==null) return;
+
+    public int trav(TreeNode root,int sum){
+        if(root==null) return 0;
 
         sum=sum*10+root.val;
         if(root.left==null && root.right ==null){
-            currentSum+=sum;
-            return;
+            return sum;
         }
 
-        trav(root.left,sum);
-        trav(root.right,sum);
+        return trav(root.left,sum)+trav(root.right,sum);
     } 
 
     public int sumNumbers(TreeNode root) {
         
-        trav(root,0);
-        return currentSum;
+        return trav(root,0);
+        
     }
 }
