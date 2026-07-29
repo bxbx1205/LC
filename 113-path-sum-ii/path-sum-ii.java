@@ -14,30 +14,26 @@
  * }
  */
 class Solution {
-    public void trav(TreeNode root,int targetSum,List<List<Integer>> ans ,List<Integer> temp){
-        if (root==null) return;    
-        if(root.left==null && root.right==null){
+    public void trav(TreeNode root,int targetSum,List<List<Integer>> ans,List<Integer> temp){
+        if(root==null) return;
+        if(root.left==null && root.right==null && root.val==targetSum){
             temp.add(root.val);
-            int sum = 0;
-            for (int num : temp) {
-                sum += num;
-            }
-            if(sum==targetSum) ans.add(new ArrayList<>(temp));
-            temp.remove(temp.size() - 1);
+            ans.add(new ArrayList<>(temp));
+            temp.remove(temp.size()-1);
             return;
         }
-        // int n = temp.size(); 
+
         temp.add(root.val);
+        trav(root.left,targetSum-root.val,ans,temp);
+        trav(root.right,targetSum-root.val,ans,temp);
 
-        trav(root.left,targetSum,ans,temp);
-        trav(root.right,targetSum,ans,temp);
-
-        temp.remove(temp.size() - 1);
+        temp.remove(temp.size()-1);
     }
-
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> ans = new ArrayList<>();
-        trav(root, targetSum, ans, new ArrayList<>());
+
+        trav(root,targetSum,ans,new ArrayList<>());
+
         return ans;
     }
 }
