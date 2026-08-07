@@ -6,29 +6,29 @@ class Solution {
         int i=0;
         int j=0;
 
-        String ans="";
+        StringBuilder ans= new StringBuilder();
         boolean turn = true;
 
         while(i<n && j<m){
             if(turn){
-                ans+=word1.charAt(i);
+                ans.append(word1.charAt(i));
                 i++;
             }
             else{
-                ans+=word2.charAt(j);
+                ans.append(word2.charAt(j));
                 j++;
             }
             turn = !turn;
         }
 
         while(i<n){
-            ans+=word1.charAt(i++);
+            ans.append(word1.charAt(i++));
         }
 
         while(j<m){
-            ans+=word2.charAt(j++);
+            ans.append(word2.charAt(j++));
         }
 
-        return ans;
+        return ans.toString();
     }
 }
