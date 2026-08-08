@@ -14,33 +14,25 @@
  * }
  */
 class Solution {
-    public int kthSmallest(TreeNode root, int k) {
-        ArrayList<Integer> list = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-
-        queue.offer(root);
-
-        while(!queue.isEmpty()){
-            int n=queue.size();
-
-            for(int i=0;i<n;i++){
-                TreeNode current=queue.poll();
-                list.add(current.val);
-
-                if(current.left!=null){
-                    queue.add(current.left);
-                }
-                if(current.right!=null){
-                    queue.add(current.right);
-                }
-            }
+    int ans=0;
+    int cnt=0;
+    public void inOrder(TreeNode root,int k){
+        if (root == null) return;
+        if (cnt >= k) return;
+        if(root.left!=null){
+            inOrder(root.left,k);
         }
-
-        Collections.sort(list);
-        // int ans= 0;
-    
-        
-
-        return list.get(k-1);
+        cnt++;
+        if(cnt==k){
+            ans=root.val;
+        }
+        if(root.right!=null){
+            inOrder(root.right,k);
+        }
+        return;
+    }
+    public int kthSmallest(TreeNode root, int k) {
+        inOrder(root,k);
+        return ans;
     }
 }
