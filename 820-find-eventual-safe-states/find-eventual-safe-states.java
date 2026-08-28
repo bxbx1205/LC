@@ -1,52 +1,47 @@
 class Solution {
-
     public List<Integer> eventualSafeNodes(int[][] graph) {
+        int V = graph.length;
 
-        int n = graph.length;
+        ArrayList<ArrayList<Integer>> revList = new ArrayList<>();
 
-        int[] outDegree = new int[n];
+        for(int i=0;i<V;i++){
+            revList.add(new ArrayList<>());
+        }
 
-        List<Integer>[] reverse = new ArrayList[n];
+        int[] indegree = new int[V];
 
-        for(int i = 0; i < n; i++){
-            reverse[i] = new ArrayList<>();
+        for(int i=0;i<V;i++){
+
+            for(int j : graph[i]){
+                revList.get(j).add(i);
+                indegree[i]++; 
+            }
         }
 
         Queue<Integer> queue = new LinkedList<>();
 
-        for(int i = 0; i < n; i++){
-
-            outDegree[i] = graph[i].length;
-
-            for(int neighbour : graph[i]){
-                reverse[neighbour].add(i);
-            }
-
-            if(outDegree[i] == 0){
+        for(int i =0;i<V;i++){
+            if(indegree[i]==0){
                 queue.offer(i);
             }
         }
 
-        List<Integer> ans = new ArrayList<>();
+        ArrayList<Integer> ans = new ArrayList<>();
 
         while(!queue.isEmpty()){
+            int current = queue.poll();
+            ans.add(current);
 
-            int node = queue.poll();
+            for(int i : revList.get(current)){
+                indegree[i]--;
 
-            ans.add(node);
-
-            for(int prev : reverse[node]){
-
-                outDegree[prev]--;
-
-                if(outDegree[prev] == 0){
-                    queue.offer(prev);
+                if (indegree[i] == 0) {
+                    queue.add(i);
                 }
             }
         }
 
         Collections.sort(ans);
-
         return ans;
     }
 }
